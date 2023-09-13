@@ -1,0 +1,14 @@
+<%- include('../partials/header') %>
+
+<form id="add-game-form" action="/games" method="POST">
+  <label>Title:
+    <input type="text" name="title">
+  </label><br>
+  <label>Release Year:
+    <input type="number" name="releaseYear">
+  </label><br>
+  <button type="submit">Add Game</button>
+</form>
+<p><%= errorMsg %></p>
+
+<%- include('../partials/footer') %>
