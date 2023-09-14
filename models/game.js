@@ -30,7 +30,9 @@ const gameSchema = new Schema({
        required: true
     },
     releaseYear: Number,
-    reviews: [reviewSchema]
+    reviews: [reviewSchema],
+    id: Number,
+    summary: String
 }, {
     timestamps: true
 })
