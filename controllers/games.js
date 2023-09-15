@@ -61,22 +61,22 @@ const getGames = async(req, res)=>{
 
 async function index(req, res) {
     const games = await Game.find({});
-//     console.log(games[0].id)
-//     const token = await getToken()
-//    //console.log('gamesid', games[0].id)
-//    const getImage = await fetch('https://api.igdb.com/v4/covers', {
-//     method: 'POST',
-//     headers: {
-//     'Client-ID': process.env.API_CLIENT_ID,
-//     'Authorization': `Bearer ${token}`,},
-//     body: `fields image_id;
-//     where game = ${games[0].id};`
-// })
-// const imageId = await result.json()
-// console.log('imageId', imageId)
+    console.log(games[0].id)
+    const token = await getToken()
+   //console.log('gamesid', games[0].id)
+   const getImage = await fetch('https://api.igdb.com/v4/covers', {
+    method: 'POST',
+    headers: {
+    'Client-ID': process.env.API_CLIENT_ID,
+    'Authorization': `Bearer ${token}`,},
+    body: `fields image_id;
+    where game = ${games[0].id};`
+})
+const imageId = await getImage.json()
+console.log('imageId', imageId)
    
     
-    res.render('games/index', { title: 'All Games', games });
+    res.render('games/index', { title: 'All Games', games, imageId: imageId[0].image_id });
     //inside of the index find all games 
     // inside of index for every game we want to find its image id 
     // store the image ids in an array- might already be array in search

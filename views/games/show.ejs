@@ -15,7 +15,7 @@
 <br><br><h2>Reviews</h2>
   <% if (user) { %>
     <form id="add-review-form" method="POST"
-    action="/games/<%= game._id %>/review">
+    action="/games/<%= game._id %>/reviews">
     <label>Review:</label>
     <textarea name="content"></textarea>
     <label>Rating:</label>
