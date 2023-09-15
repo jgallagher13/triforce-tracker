@@ -11,6 +11,7 @@ body {
   font-family: 'hylia_serif_betaregular';
   background-image: url('../images/hyrule.jpeg');
   background-size: cover;
+  background-repeat: no-repeat;
   padding: 50px;
   font: 10px;
   margin: 0;
@@ -29,6 +30,10 @@ body > nav {
   align-items: center;
   background-color: goldenrod;
   padding: 0 20px 0 30px;
+}
+
+#games {
+  all: unset;
 }
 
 a {
@@ -160,3 +165,4 @@ button:hover {
   color: white;
   background-color: navy; 
 }
+

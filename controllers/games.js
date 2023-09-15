@@ -78,23 +78,14 @@ async function index(req, res) {
             });
             const imageIdData = await getImage.json();
             const imageId = imageIdData[0]?.image_id;
-            imageIds.push(imageId);
+            imageIds.push(imageId)
         }
-
-        console.log('imageIds', imageIds);
-
         res.render('games/index', { title: 'All Games', games, imageIds });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
 }
-
-//     // for loop for every game 
-//     // make a fetch request, query for each game id
-//     // take iage id objects and push into array
-//     // pass array to template
-
 
 async function show(req, res) {
     const game = await Game.findById(req.params.id)
