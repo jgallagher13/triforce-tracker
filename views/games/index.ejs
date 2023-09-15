@@ -1,5 +1,7 @@
 <%- include('../partials/header') %>
-
+<% imageIds.map(imageId => { %>
+  <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/<%= imageId %>.jpg">
+<% }) %>
  <table>
    <thead>
      <tr>
@@ -12,7 +14,9 @@
        <tr>
          <td><%= g.title %></td>
          <td><%= g.releaseYear %></td>
-         <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/<%= imageId %>.jpg">
+         <!-- loop of array of image ids (i.imageId) -->
+        
+         <!-- <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/<%= imageIds %>.jpg"> -->
          <td id="game-info"><a href="/games/<%= g._id %>">Game Info</a></td>
        </tr>
        <% }); %>

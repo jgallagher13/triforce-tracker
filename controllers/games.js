@@ -60,29 +60,41 @@ const getGames = async(req, res)=>{
 }
 
 async function index(req, res) {
-    const games = await Game.find({});
-    console.log(games[0].id)
-    const token = await getToken()
-   //console.log('gamesid', games[0].id)
-   const getImage = await fetch('https://api.igdb.com/v4/covers', {
-    method: 'POST',
-    headers: {
-    'Client-ID': process.env.API_CLIENT_ID,
-    'Authorization': `Bearer ${token}`,},
-    body: `fields image_id;
-    where game = ${games[0].id};`
-})
-const imageId = await getImage.json()
-console.log('imageId', imageId)
-   
-    
-    res.render('games/index', { title: 'All Games', games, imageId: imageId[0].image_id });
-    //inside of the index find all games 
-    // inside of index for every game we want to find its image id 
-    // store the image ids in an array- might already be array in search
-    // once we have all game image ids we send that to our index page
-    // inside of ejs we want to for every game inject the image id inside of the src inside of image tag 
+    try {
+        const games = await Game.find({});
+        const token = await getToken();
+
+        const imageIds = [];
+
+        for (const game of games) {
+            const getImage = await fetch('https://api.igdb.com/v4/covers', {
+                method: 'POST',
+                headers: {
+                    'Client-ID': process.env.API_CLIENT_ID,
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: `fields image_id;
+                        where game = ${game.id};`
+            });
+            const imageIdData = await getImage.json();
+            const imageId = imageIdData[0]?.image_id;
+            imageIds.push(imageId);
+        }
+
+        console.log('imageIds', imageIds);
+
+        res.render('games/index', { title: 'All Games', games, imageIds });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
     }
+}
+
+//     // for loop for every game 
+//     // make a fetch request, query for each game id
+//     // take iage id objects and push into array
+//     // pass array to template
+
 
 async function show(req, res) {
     const game = await Game.findById(req.params.id)
@@ -98,15 +110,6 @@ async function show(req, res) {
     })
     const resolvedJson = await result.json()
    
-//     const getImage = await fetch('https://api.igdb.com/v4/covers', {
-//         method: 'POST',
-//         headers: {
-//         'Client-ID': process.env.API_CLIENT_ID,
-//         'Authorization': `Bearer ${token}`,},
-//         body: `fields image_id;
-//         where game = ${game.id};`
-//     })
-// console.log(getImage)
     res.render('games/show', {title: 'Game Details', game, resolvedJson: resolvedJson[0]})
       }
 module.exports = {
