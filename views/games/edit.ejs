@@ -1,12 +1,15 @@
 <%- include('../partials/header') %>
 
 
-<form id="edit-game-form" action="/games" method="POST">
+<form id="edit-game-form" action="/games/<%= game._id %>?_method=PUT" method="POST">
   <label>Title:
     <input type="text" name="title">
   </label><br>
   <label>Release Year:
     <input type="number" name="releaseYear">
+  </label><br>
+  <label>IGDB Game Id:
+    <input type="number" name="id">
   </label><br>
   <button type="submit">Update Game</button>
 </form>

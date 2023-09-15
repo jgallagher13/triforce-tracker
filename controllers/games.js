@@ -1,6 +1,10 @@
 const Game = require('../models/game')
 
-
+async function update(req, res) {
+    const game= await Game.findByIdAndUpdate(req.params.id, req.body);
+    console.log(game)
+    res.redirect(`/games/${req.params.id}`)
+}
 
 async function edit(req, res) {
     const game = await Game.findById(req.params.id)
@@ -34,6 +38,7 @@ const getToken = async()=> {
 }
 
 const getGames = async(req, res)=>{
+    const games = await Game.find({});
     const token = getToken()
     console.log('get games', token)
     fetch(
@@ -52,29 +57,29 @@ const getGames = async(req, res)=>{
         .catch(err => {
             console.error(err);
         });
-    
 }
-async function index(req, res) {
-    const token = await getToken()
-    const result = await fetch('https://api.igdb.com/v4/covers', {
-        method: 'POST',
-        headers: {
-        'Client-ID': process.env.API_CLIENT_ID,
-        'Authorization': `Bearer ${token}`,},
-        body: `fields image_id;
-        where game = 7346;`
-    })
-    const imageId = await result.json()
-    console.log(imageId[0].image_id)
-    
 
+async function index(req, res) {
     const games = await Game.find({});
-    res.render('games/index', { title: 'All Games', games, imageId: imageId[0].image_id });
-    // modify create
-    //inside of modify create intake game id
+//     console.log(games[0].id)
+//     const token = await getToken()
+//    //console.log('gamesid', games[0].id)
+//    const getImage = await fetch('https://api.igdb.com/v4/covers', {
+//     method: 'POST',
+//     headers: {
+//     'Client-ID': process.env.API_CLIENT_ID,
+//     'Authorization': `Bearer ${token}`,},
+//     body: `fields image_id;
+//     where game = ${games[0].id};`
+// })
+// const imageId = await result.json()
+// console.log('imageId', imageId)
+   
+    
+    res.render('games/index', { title: 'All Games', games });
     //inside of the index find all games 
     // inside of index for every game we want to find its image id 
-    // store the image ids in an array- might just be in search
+    // store the image ids in an array- might already be array in search
     // once we have all game image ids we send that to our index page
     // inside of ejs we want to for every game inject the image id inside of the src inside of image tag 
     }
@@ -92,8 +97,16 @@ async function show(req, res) {
         search "${game.title.toLowerCase()}";`
     })
     const resolvedJson = await result.json()
-    console.log(resolvedJson)
    
+//     const getImage = await fetch('https://api.igdb.com/v4/covers', {
+//         method: 'POST',
+//         headers: {
+//         'Client-ID': process.env.API_CLIENT_ID,
+//         'Authorization': `Bearer ${token}`,},
+//         body: `fields image_id;
+//         where game = ${game.id};`
+//     })
+// console.log(getImage)
     res.render('games/show', {title: 'Game Details', game, resolvedJson: resolvedJson[0]})
       }
 module.exports = {
@@ -102,5 +115,6 @@ module.exports = {
         index,
         show,
         edit,
-        getGames
+        getGames,
+        update
     }
