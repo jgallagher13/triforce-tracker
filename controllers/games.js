@@ -6,14 +6,7 @@ async function update(req, res) {
         return res.status(403).json({ error: 'Unauthorized' });
     }
     console.log(game)
-    game.updateOne(req.body)
-    // Game.findByIdAndUpdate({_id: req.params.id, user: req.user._id}, req.body, {new: true});
-    // const game= await Game.findByIdAndUpdate({_id: req.params.id, user: req.user._id}, req.body, {new: true});
-    // if (!game.user.equals(req.user._id)) {
-    //     return res.status(403).json({ error: 'Unauthorized' });
-    // }
-    // console.log("this is update game console log", game)
-    // console.log(game.user)
+    await game.updateOne(req.body)
     res.redirect(`/games/${game._id}`)
 }
 
