@@ -6,10 +6,10 @@
 
 ## Images of Application
 - Homepage
-![Alt text](images/home.png)
+![Alt text](public/images/home.png)
 
 - All games page
-![Alt text](images/allgames.png)
+![Alt text](public/images/allgames.png)
 
 
 ## Technologies Used
