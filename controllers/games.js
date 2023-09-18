@@ -1,9 +1,9 @@
 const Game = require('../models/game')
 
 async function update(req, res) {
-    const game= await Game.findOneAndUpdate({_id: req.params.id, userId: req.user._id}, req.body, {new: true});
-    console.log(game)
-    console.log(game.userId)
+    const game= await Game.findByIdAndUpdate({_id: req.params.id, user: req.user._id}, req.body, {new: true});
+    console.log("this is update game console log", game)
+    console.log(game.user)
     res.redirect(`/games/${game._id}`)
 }
 
@@ -18,6 +18,7 @@ function newGame(req, res) {
 
 async function create(req, res) {
     try {
+        req.body.user = req.user._id
         await Game.create(req.body)
         res.redirect('/games')
     } catch (err) {
@@ -69,7 +70,6 @@ async function index(req, res) {
 async function show(req, res) {
     const game = await Game.findById(req.params.id)
     const token = await getToken()
-    console.log(game.title.toLowerCase())
     const result = await fetch('https://api.igdb.com/v4/games', {
         method: 'POST',
         headers: {

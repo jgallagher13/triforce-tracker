@@ -32,7 +32,12 @@ const gameSchema = new Schema({
     releaseYear: Number,
     reviews: [reviewSchema],
     id: Number,
-    summary: String
+    summary: String,
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
 }, {
     timestamps: true
 })
