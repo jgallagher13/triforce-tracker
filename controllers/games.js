@@ -1,9 +1,19 @@
 const Game = require('../models/game')
 
 async function update(req, res) {
-    const game= await Game.findByIdAndUpdate({_id: req.params.id, user: req.user._id}, req.body, {new: true});
-    console.log("this is update game console log", game)
-    console.log(game.user)
+    const game = await Game.findById(req.params.id)
+    if (!game.user.equals(req.user._id)) {
+        return res.status(403).json({ error: 'Unauthorized' });
+    }
+    console.log(game)
+    game.updateOne(req.body)
+    // Game.findByIdAndUpdate({_id: req.params.id, user: req.user._id}, req.body, {new: true});
+    // const game= await Game.findByIdAndUpdate({_id: req.params.id, user: req.user._id}, req.body, {new: true});
+    // if (!game.user.equals(req.user._id)) {
+    //     return res.status(403).json({ error: 'Unauthorized' });
+    // }
+    // console.log("this is update game console log", game)
+    // console.log(game.user)
     res.redirect(`/games/${game._id}`)
 }
 

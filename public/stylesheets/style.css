@@ -167,3 +167,9 @@ button:hover {
   background-color: navy; 
 }
 
+#home {
+  border: 2px solid goldenrod; 
+  background-color: goldenrod;
+  padding: 15px;
+  text-align: center;
+}
