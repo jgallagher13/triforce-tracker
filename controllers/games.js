@@ -1,7 +1,7 @@
 const Game = require('../models/game')
 
 async function update(req, res) {
-    const game= await Game.findByIdAndUpdate({_id: req.params.id, userId: req.user._id}, req.body, {new: true});
+    const game= await Game.findOneAndUpdate({_id: req.params.id, userId: req.user._id}, req.body, {new: true});
     console.log(game)
     console.log(game.userId)
     res.redirect(`/games/${game._id}`)

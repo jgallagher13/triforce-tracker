@@ -1,8 +1,8 @@
 <%- include('../partials/header') %>
 
 <% imageIds.forEach(function(imageId, game) { %>
-  <a id="games" href="/games/<%= games[game]._id %>">
-    <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/<%= imageId %>.jpg"></a>
+  <a class="games" href="/games/<%= games[game]._id %>">
+    <img class="fadein" src="https://images.igdb.com/igdb/image/upload/t_cover_big/<%= imageId %>.jpg"></a>
 <% }) %>
 
 
