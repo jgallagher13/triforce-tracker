@@ -1,13 +1,14 @@
 const Game = require('../models/game')
 
 async function update(req, res) {
-    const game= await Game.findByIdAndUpdate(req.params.id, req.body);
+    const game= await Game.findByIdAndUpdate({_id: req.params.id, userId: req.user._id}, req.body, {new: true});
     console.log(game)
-    res.redirect(`/games/${req.params.id}`)
+    console.log(game.userId)
+    res.redirect(`/games/${game._id}`)
 }
 
 async function edit(req, res) {
-    const game = await Game.findById(req.params.id)
+    const game = await Game.findById(req.params.id, req.user._id)
     res.render('games/edit', {title: 'Edit Game', game})
 }
 
@@ -35,28 +36,6 @@ const getToken = async()=> {
     const resolvedJson = await res.json()
    console.log(resolvedJson.access_token)
    return resolvedJson.access_token
-}
-
-const getGames = async(req, res)=>{
-    const games = await Game.find({});
-    const token = getToken()
-    console.log('get games', token)
-    fetch(
-        "https://api.igdb.com/v4/games",
-        { method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Client-ID': process.env.API_CLIENT_ID,
-            'Authorization': `Bearer ${token}`,
-          },
-          body: "fields name, cover, first-release-date, summary;"
-      })
-        .then(response => {
-            console.log(response.json());
-        })
-        .catch(err => {
-            console.error(err);
-        });
 }
 
 async function index(req, res) {
@@ -109,6 +88,5 @@ module.exports = {
         index,
         show,
         edit,
-        getGames,
         update
     }

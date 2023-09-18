@@ -9,7 +9,6 @@ router.post('/', ensureLoggedIn, gamesCtrl.create)
 router.get('/:id', gamesCtrl.show);
 router.get('/:id/edit', ensureLoggedIn, gamesCtrl.edit)
 router.get('/', gamesCtrl.index)
-router.post('/gamesAPI', gamesCtrl.getGames)
 router.put('/:id', gamesCtrl.update)
 
 module.exports = router;
