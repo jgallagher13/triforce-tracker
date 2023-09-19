@@ -1,4 +1,5 @@
 const Game = require('../models/game')
+const fetch = require('node-fetch')
 
 async function update(req, res) {
     const game = await Game.findById(req.params.id)
