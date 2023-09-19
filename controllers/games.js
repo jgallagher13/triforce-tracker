@@ -6,7 +6,6 @@ async function update(req, res) {
     if (!game.user.equals(req.user._id)) {
         return res.status(403).json({ error: 'Unauthorized' });
     }
-    console.log(game)
     await game.updateOne(req.body)
     res.redirect(`/games/${game._id}`)
 }
@@ -39,7 +38,6 @@ const getToken = async()=> {
         method: 'POST'
     })
     const resolvedJson = await res.json()
-   console.log(resolvedJson.access_token)
    return resolvedJson.access_token
 }
 
