@@ -6,7 +6,7 @@
 
 ## Images of Application
 - Homepage
-![Alt text](public/images/home.png)
+![Alt text](public/images/homepage.png)
 
 - All games page
 ![Alt text](public/images/allgames.png)
