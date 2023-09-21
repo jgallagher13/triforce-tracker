@@ -5,7 +5,7 @@
 - The application uses the IGDB API to add a summary to the game details and to render an image for the game added in the all games page.
 
 ## Images of Application
-- Homepage
+- Home page
 ![Alt text](public/images/homepage.png)
 
 - All games page
