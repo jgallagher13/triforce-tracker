@@ -81,7 +81,7 @@ async function show(req, res) {
         search "${game.title.toLowerCase()}";`
     })
     const resolvedJson = await result.json()
-   
+console.log(resolvedJson[0].id)
     res.render('games/show', {title: 'Game Details', game, resolvedJson: resolvedJson[0]})
       }
 module.exports = {
